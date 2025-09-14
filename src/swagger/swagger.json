@@ -1,0 +1,1102 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"UsuarioRequestDto": {
+				"properties": {
+					"nome": {
+						"type": "string"
+					},
+					"senha": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"nome",
+					"senha"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BasicResponseDto": {
+				"properties": {
+					"message": {
+						"type": "string"
+					},
+					"data": {}
+				},
+				"required": [
+					"message",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SetupRequestDto": {
+				"properties": {
+					"codigo": {
+						"type": "number",
+						"format": "double"
+					},
+					"nome_conta": {
+						"type": "string"
+					},
+					"grupo_contabil": {
+						"type": "string"
+					},
+					"subgrupo1": {
+						"type": "string",
+						"nullable": true
+					},
+					"subgrupo2": {
+						"type": "string",
+						"nullable": true
+					},
+					"saldo_inicial": {
+						"type": "number",
+						"format": "double",
+						"nullable": true
+					}
+				},
+				"required": [
+					"codigo",
+					"nome_conta",
+					"grupo_contabil"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LivroDiarioRequestDto": {
+				"properties": {
+					"lancamentoId": {
+						"type": "number",
+						"format": "double"
+					},
+					"setupId": {
+						"type": "number",
+						"format": "double"
+					},
+					"tipo": {
+						"type": "string",
+						"enum": [
+							"debito",
+							"credito"
+						]
+					},
+					"valor": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"lancamentoId",
+					"setupId",
+					"tipo",
+					"valor"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PartidaDto": {
+				"properties": {
+					"setupId": {
+						"type": "number",
+						"format": "double"
+					},
+					"tipo": {
+						"type": "string",
+						"enum": [
+							"debito",
+							"credito"
+						]
+					},
+					"valor": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"setupId",
+					"tipo",
+					"valor"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LancamentoCompletoRequestDto": {
+				"properties": {
+					"data": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"historico": {
+						"type": "string"
+					},
+					"partidas": {
+						"items": {
+							"$ref": "#/components/schemas/PartidaDto"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"data",
+					"historico",
+					"partidas"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "contabil",
+		"version": "1.0.0",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {}
+	},
+	"paths": {
+		"/usuario": {
+			"post": {
+				"operationId": "CadastrarUsuario",
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Usuário"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UsuarioRequestDto"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/usuario/{id}": {
+			"put": {
+				"operationId": "AtualizarUsuario",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"404": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Usuário"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UsuarioRequestDto"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeletarUsuario",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"404": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Usuário"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"get": {
+				"operationId": "FiltrarUsuarioPorId",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"404": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Usuário"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/usuario/todos": {
+			"get": {
+				"operationId": "ListarTodosUsuarios",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Usuário"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/setup": {
+			"post": {
+				"operationId": "CriarSetup",
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Setup"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SetupRequestDto"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/setup/{id}": {
+			"put": {
+				"operationId": "AtualizarSetup",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"404": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Setup"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SetupRequestDto"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeletarSetup",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"404": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Setup"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"get": {
+				"operationId": "BuscarPorId",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"404": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Setup"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/setup/todos": {
+			"get": {
+				"operationId": "ListarTodos",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Setup"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/livro-diario": {
+			"post": {
+				"operationId": "CriarEntrada",
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Livro Diário"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LivroDiarioRequestDto"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/livro-diario/{id}": {
+			"put": {
+				"operationId": "AtualizarEntrada",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"404": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Livro Diário"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LivroDiarioRequestDto"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeletarEntrada",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"404": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Livro Diário"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"get": {
+				"operationId": "BuscarPorId",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"404": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Livro Diário"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/livro-diario/por-lancamento/{lancamentoId}": {
+			"get": {
+				"operationId": "BuscarPorLancamentoId",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Livro Diário"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "lancamentoId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/livro-diario/todos": {
+			"get": {
+				"operationId": "ListarTodos",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Livro Diário"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/lancamento": {
+			"post": {
+				"operationId": "CriarLancamento",
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Lançamento"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LancamentoCompletoRequestDto"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/lancamento/{id}": {
+			"put": {
+				"operationId": "AtualizarLancamento",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"404": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Lançamento"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LancamentoCompletoRequestDto"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeletarLancamento",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"404": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Lançamento"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			},
+			"get": {
+				"operationId": "BuscarPorId",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"404": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Lançamento"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/lancamento/todos": {
+			"get": {
+				"operationId": "ListarTodos",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No content"
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BasicResponseDto"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Lançamento"
+				],
+				"security": [],
+				"parameters": []
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}

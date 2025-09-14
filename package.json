@@ -1,0 +1,36 @@
+{
+  "dependencies": {
+    "-": "^0.0.1",
+    "@types/express": "^4.17.21",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.2.2",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.11.0",
+    "swagger": "^0.7.5",
+    "swagger-ui-express": "^5.0.1",
+    "typeorm": "^0.3.20",
+    "ui": "^0.2.4"
+  },
+  "name": "contabil",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "tsoa:spec": "tsoa spec",
+    "tsoa:routes": "tsoa routes",
+    "build": "npm run tsoa:spec && npm run tsoa:routes && tsc",
+    "start": "node dist/app.js",
+    "dev": "npm run build && node dist/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/jsonwebtoken": "^9.0.10",
+    "tsoa": "^6.6.0"
+  }
+}
