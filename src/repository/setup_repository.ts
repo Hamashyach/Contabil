@@ -1,5 +1,5 @@
-import { executarComandoSQL } from "../database/mysql"; // Certifique-se que o caminho está correto
-import { Setup } from "../model/entity/setup_model"; // Certifique-se que o caminho está correto
+import { executarComandoSQL } from "../database/mysql"; 
+import { Setup } from "../model/entity/setup_model"; 
 
 export class SetupRepository {
 
@@ -25,7 +25,7 @@ export class SetupRepository {
             console.log('Tabela "setup" criada ou já existente com sucesso.');
         } catch (err) {
             console.error('Erro ao criar a tabela "setup":', err);
-            throw err; // Lançar o erro para que a aplicação possa tratá-lo, se necessário
+            throw err; 
         }
     }
 
@@ -140,7 +140,7 @@ export class SetupRepository {
                 console.log('Setup localizado com sucesso. ID:', id);
                 return resultados[0] as Setup;
             }
-            return null; // Retorna nulo se não encontrar
+            return null; 
         } catch (err) {
             console.error(`Falha ao procurar setup de ID ${id}:`, err);
             throw err;

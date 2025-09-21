@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios - Sistema Contábil</title>
+    <link rel="stylesheet" href="../css/dashboard.css"> 
+    <link rel="stylesheet" href="../css/relatorios.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-chart-pie logo-icon"></i>
+                <span class="logo-text">Contábil</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="lancamentos.html" class="nav-item">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>Lançamentos</span>
+                </a>
+                <a href="relatorios.html" class="nav-item active"> <i class="fas fa-file-invoice-dollar"></i>
+                    <span>Relatórios</span>
+                </a>
+                 <a href="#" class="nav-item">
+                    <i class="fas fa-cogs"></i>
+                    <span>Configurações</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                 <a href="#" id="logout-button" class="nav-item">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Sair</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header">
+                <h1>Relatórios Contábeis</h1>
+            </header>
+
+            <div class="report-controls">
+                <div class="control-group">
+                    <label for="report-type">Selecione o Relatório</label>
+                    <select id="report-type">
+                        <option value="balancete" selected>Balancete de Verificação</option>
+                        <option value="razao">Livro Razão</option>
+                        <option value="dre">DRE</option>
+                        <option value="bp">Balanço Patrimonial</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="date-start">Período De</label>
+                    <input type="date" id="date-start">
+                </div>
+                <div class="control-group">
+                    <label for="date-end">Até</label>
+                    <input type="date" id="date-end">
+                </div>
+                <button class="btn-primary" id="btn-gerar-relatorio">
+                    <i class="fas fa-sync-alt"></i> Gerar
+                </button>
+            </div>
+
+            <div class="report-container" id="balancete-container">
+                <div class="report-header">
+                    <h2>Balancete de Verificação</h2>
+                    <span id="periodo-relatorio">Período: --/--/---- a --/--/----</span>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th rowspan="2">Cód.</th>
+                                <th rowspan="2">Conta</th>
+                                <th colspan="2" class="text-center group-header">Saldo Inicial</th>
+                                <th colspan="2" class="text-center group-header">Saldo Final</th>
+                            </tr>
+                            <tr>
+                                <th class="text-right sub-header">Débito (R$)</th>
+                                <th class="text-right sub-header">Crédito (R$)</th>
+                                <th class="text-right sub-header">Débito (R$)</th>
+                                <th class="text-right sub-header">Crédito (R$)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="balancete-tbody">
+                            </tbody>
+                        <tfoot>
+                            <tr class="totals-row">
+                                <td colspan="2">TOTAIS</td>
+                                <td class="text-right" id="total-inicial-debito">R$ 0,00</td>
+                                <td class="text-right" id="total-inicial-credito">R$ 0,00</td>
+                                <td class="text-right" id="total-final-debito">R$ 0,00</td>
+                                <td class="text-right" id="total-final-credito">R$ 0,00</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+            <div class="report-container" id="razao-container" style="display: none;">
+    <div class="report-header">
+        <h2>Livro Razão</h2>
+        <div class="control-group">
+            <label for="razao-conta-select">Selecione a Conta</label>
+            <select id="razao-conta-select"></select>
+        </div>
+    </div>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Descrição</th>
+                    <th class="text-right">Débito (R$)</th>
+                    <th class="text-right">Crédito (R$)</th>
+                    <th class="text-right">Saldo (R$)</th>
+                </tr>
+            </thead>
+            <tbody id="razao-tbody">
+                </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="report-container" id="dre-container" style="display: none;">
+    <div class="report-header">
+        <h2>Demonstração do Resultado do Exercício</h2>
+        <span id="periodo-dre">Período: --/--/---- a --/--/----</span>
+    </div>
+    <div class="dre-wrapper">
+        <div class="dre-line">
+            <span class="dre-label">Receita Operacional Bruta</span>
+            <span class="dre-value" id="dre-receita-bruta">R$ 0,00</span>
+        </div>
+        <div class="dre-line negative">
+            <span class="dre-label">(-) Deduções da Receita Bruta</span>
+            <span class="dre-value" id="dre-deducoes">R$ 0,00</span>
+        </div>
+        <div class="dre-line total-line">
+            <span class="dre-label">(=) Receita Operacional Líquida</span>
+            <span class="dre-value" id="dre-receita-liquida">R$ 0,00</span>
+        </div>
+        <div class="dre-line negative">
+            <span class="dre-label">(-) Custo das Mercadorias Vendidas (CMV)</span>
+            <span class="dre-value" id="dre-cmv">R$ 0,00</span>
+        </div>
+        <div class="dre-line total-line major-total">
+            <span class="dre-label">(=) Lucro Bruto</span>
+            <span class="dre-value" id="dre-lucro-bruto">R$ 0,00</span>
+        </div>
+        <div class="dre-group-header">Despesas Operacionais</div>
+        <div class="dre-line negative">
+            <span class="dre-label">(-) Despesas com Vendas</span>
+            <span class="dre-value" id="dre-despesas-vendas">R$ 0,00</span>
+        </div>
+        <div class="dre-line negative">
+            <span class="dre-label">(-) Despesas Administrativas</span>
+            <span class="dre-value" id="dre-despesas-admin">R$ 0,00</span>
+        </div>
+        <div class="dre-line total-line major-total">
+            <span class="dre-label">(=) Lucro/Prejuízo Operacional</span>
+            <span class="dre-value" id="dre-lucro-operacional">R$ 0,00</span>
+        </div>
+        <div class="dre-line total-line final-result">
+            <span class="dre-label">(=) Lucro Líquido do Exercício</span>
+            <span class="dre-value" id="dre-lucro-liquido">R$ 0,00</span>
+        </div>
+    </div>
+</div>
+
+<div class="report-container" id="bp-container" style="display: none;">
+    <div class="report-header">
+        <h2>Balanço Patrimonial</h2>
+        <span id="periodo-bp">Em --/--/----</span>
+    </div>
+    <div class="bp-wrapper">
+        <div class="bp-column">
+            <div class="bp-header">ATIVO</div>
+            <div id="bp-ativo">
+                </div>
+            <div class="bp-total-line">
+                <span>TOTAL ATIVO</span>
+                <span id="bp-total-ativo">R$ 0,00</span>
+            </div>
+        </div>
+        <div class="bp-column">
+            <div class="bp-header">PASSIVO E PATRIMÔNIO LÍQUIDO</div>
+            <div id="bp-passivo-pl">
+                </div>
+            <div class="bp-total-line">
+                <span>TOTAL PASSIVO + PL</span>
+                <span id="bp-total-passivo-pl">R$ 0,00</span>
+            </div>
+        </div>
+    </div>
+</div>
+        </main>
+    </div>
+    
+    <script src="../js/dashboard.js"></script> 
+    <script src="../js/relatorios.js"></script>
+</body>
+</html>

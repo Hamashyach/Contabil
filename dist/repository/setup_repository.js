@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SetupRepository = void 0;
-const mysql_1 = require("../database/mysql"); // Certifique-se que o caminho está correto
+const mysql_1 = require("../database/mysql");
 class SetupRepository {
     constructor() {
         this.createTable();
@@ -34,7 +34,7 @@ class SetupRepository {
             }
             catch (err) {
                 console.error('Erro ao criar a tabela "setup":', err);
-                throw err; // Lançar o erro para que a aplicação possa tratá-lo, se necessário
+                throw err;
             }
         });
     }
@@ -150,7 +150,7 @@ class SetupRepository {
                     console.log('Setup localizado com sucesso. ID:', id);
                     return resultados[0];
                 }
-                return null; // Retorna nulo se não encontrar
+                return null;
             }
             catch (err) {
                 console.error(`Falha ao procurar setup de ID ${id}:`, err);

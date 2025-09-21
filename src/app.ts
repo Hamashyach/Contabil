@@ -2,22 +2,27 @@ import express from "express";
 import { RegisterRoutes } from "./routes/routes";
 import { setupSwagger } from "./config/swagger";
 import dotenv from 'dotenv';
-dotenv.config();
+import cors from 'cors';
 
+
+dotenv.config();
 
 const app = express();
 
-const PORT = 3040;
 
-app.use(express.json());
+const PORT = process.env.PORT || 3000;
 
-const apiRouter = express.Router();
-RegisterRoutes(apiRouter);
 
-app.use('/api', apiRouter);
-
-RegisterRoutes(app);
+app.use(cors()); 
+app.use(express.json()); 
 
 setupSwagger(app);
 
-app.listen(PORT, ()=> console.log("API online na porta: " + PORT));
+
+RegisterRoutes(app);
+
+
+app.listen(PORT, () => {
+    console.log(`API online na porta: ${PORT}`);
+    console.log(`Documentação disponível em: http://localhost:${PORT}/docs`);
+});

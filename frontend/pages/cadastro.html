@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Sistema Contábil</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="branding-panel">
+            <div class="branding-content">
+                <h2>Contabilidade Inteligente</h2>
+                <p>Precisão e clareza para o futuro do seu negócio. Junte-se a nós.</p>
+            </div>
+        </div>
+
+        <div class="form-panel">
+            <div class="form-wrapper">
+                <div class="form-header">
+                    <h1>Crie sua Conta</h1>
+                    <p>Comece sua jornada para uma gestão eficiente.</p>
+                </div>
+                
+                <form id="register-form">
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="nome" name="nome" placeholder="Nome Completo" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="senha" name="senha" placeholder="Senha" required>
+                    </div>
+
+                    <div class="separator">
+                        <span>Dados da Empresa</span>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fas fa-building"></i>
+                        <input type="text" id="razao_social" name="razao_social" placeholder="Razão Social" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-id-card"></i>
+                        <input type="text" id="cnpj" name="cnpj" placeholder="CNPJ" required>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Criar Conta</button>
+                    <div id="message" class="message"></div>
+                </form>
+
+                <div class="form-footer">
+                    <p>Já tem uma conta? <a href="index.html">Faça Login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/cadastro.js"></script>
+</body>
+</html>

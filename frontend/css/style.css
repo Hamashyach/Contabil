@@ -1,0 +1,230 @@
+
+:root {
+    --primary-dark: #1a202c;
+    --primary-blue: #2563eb;
+    --primary-blue-hover: #1d4ed8;
+    --text-light: #a0aec0;
+    --text-dark: #2d3748;
+    --background-light: #f7fafc;
+    --border-color: #e2e8f0;
+    --white-color: #ffffff;
+    --success-color: #38a169;
+    --error-color: #e53e3e;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-light);
+    color: var(--text-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+
+.main-container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    min-height: 700px;
+    background-color: var(--white-color);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 20px;
+}
+
+
+.branding-panel {
+    flex: 1;
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-blue) 100%);
+    color: var(--white-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+}
+
+.branding-content {
+    text-align: center;
+}
+
+.branding-content h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.branding-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+
+.form-panel {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+}
+
+.form-wrapper {
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.form-header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.form-header p {
+    color: var(--text-light);
+}
+
+
+.input-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.input-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-light);
+    transition: color 0.3s ease;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 15px 15px 15px 45px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 1rem;
+    background-color: var(--background-light);
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    background-color: var(--white-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.input-group input:focus + i {
+    color: var(--primary-blue);
+}
+
+
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: var(--text-light);
+    margin: 30px 0;
+}
+
+.separator::before, .separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.separator:not(:empty)::before {
+    margin-right: .25em;
+}
+
+.separator:not(:empty)::after {
+    margin-left: .25em;
+}
+
+
+.btn-submit {
+    width: 100%;
+    padding: 15px;
+    background: var(--primary-blue);
+    color: var(--white-color);
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+    background: var(--primary-blue-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+}
+
+
+.form-footer {
+    text-align: center;
+    margin-top: 30px;
+    color: var(--text-light);
+}
+
+.form-footer a {
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.message {
+    text-align: center;
+    margin-top: 15px;
+    min-height: 20px;
+    font-weight: 500;
+}
+.message.success { color: var(--success-color); }
+.message.error { color: var(--error-color); }
+
+
+
+.options {
+    text-align: right;
+    margin-bottom: 25px;
+}
+
+.forgot-password {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    color: var(--primary-blue);
+}
+
+
+@media (max-width: 900px) {
+    .main-container {
+        flex-direction: column;
+        min-height: auto;
+    }
+    .branding-panel {
+        display: none;
+    }
+    .form-panel {
+        padding: 40px 20px;
+    }
+}

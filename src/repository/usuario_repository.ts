@@ -83,23 +83,32 @@ export class UsuarioRepository{
         }
     }
 
-    async filterusuarioById(id: number):Promise<Usuario>{
-        const query = "SELECT * FROM usuario where id = ?";
+   
 
-        try {
-            const resultado = await executarComandoSQL(query, [id]);
-            console.log('Usuario localizada com sucesso ID: ', resultado);
-            return new Promise<Usuario>((resolve) =>{
-                resolve(resultado);
-            })
+public async filterUsuarioByNomeOuEmpresa(nomeLogin: string): Promise<Usuario | null> {
+    
+    let query = "SELECT * FROM usuario WHERE nome = ?";
+    let resultado = await executarComandoSQL(query, [nomeLogin]);
 
-        }catch (err:any){
-            console.error(`Falha ao procurar usuario de ID ${id} gerando o erro${err}`);
-            throw err;
-        }
-
+    if (resultado.length > 0) {
+        return resultado[0] as Usuario;
     }
 
+    
+    query = `
+        SELECT u.* FROM usuario u
+        INNER JOIN empresa e ON u.id_empresa = e.id
+        WHERE e.razao_social = ? OR e.nome_fantasia = ?
+        LIMIT 1
+    `;
+    resultado = await executarComandoSQL(query, [nomeLogin, nomeLogin]);
+
+    if (resultado.length > 0) {
+        return resultado[0] as Usuario;
+    }
+
+    return null; 
+}
     async filterAllUsuarios(): Promise<Usuario[]>{
         const query = "SELECT * FROM usuario";
 

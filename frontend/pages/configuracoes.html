@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup - Plano de Contas</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/lancamentos.css"> 
+    <link rel="stylesheet" href="../css/configuracoes.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-chart-pie logo-icon"></i>
+                <span class="logo-text">Contábil</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="lancamentos.html" class="nav-item">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>Lançamentos</span>
+                </a>
+                <a href="relatorios.html" class="nav-item">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span>Relatórios</span>
+                </a>
+                 <a href="configuracoes.html" class="nav-item active"> <i class="fas fa-cogs"></i>
+                    <span>Setup</span> </a>
+            </nav>
+            <div class="sidebar-footer">
+                 <a href="#" id="logout-button" class="nav-item">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Sair</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header">
+                <h1>Plano de Contas</h1>
+                <button class="btn-primary" id="btn-nova-conta">
+                    <i class="fas fa-plus"></i> Nova Conta
+                </button>
+            </header>
+
+            <div class="form-panel-lancamento" id="form-panel-conta" style="display: none;">
+                <h2 id="form-title">Adicionar Nova Conta</h2>
+                <form id="conta-form">
+                    <input type="hidden" id="conta-id"> <div class="form-grid-config">
+                        <div class="form-group">
+                            <label for="codigo">Código</label>
+                            <input type="number" id="codigo" required placeholder="Ex: 11101">
+                        </div>
+                        <div class="form-group">
+                            <label for="nome_conta">Nome da Conta</label>
+                            <input type="text" id="nome_conta" required placeholder="Ex: Caixa Geral">
+                        </div>
+                        <div class="form-group">
+                            <label for="grupo_contabil">Grupo Contábil</label>
+                            <input type="text" id="grupo_contabil" required placeholder="Ex: ATIVO CIRCULANTE">
+                        </div>
+                         <div class="form-group">
+                            <label for="saldo_inicial">Saldo Inicial (R$)</label>
+                            <input type="number" id="saldo_inicial" step="0.01" required value="0.00">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="btn-cancelar-conta">Cancelar</button>
+                        <button type="submit" class="btn-primary" id="btn-salvar-conta">Salvar Conta</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nome da Conta</th>
+                            <th>Grupo</th>
+                            <th class="text-right">Saldo Inicial (R$)</th>
+                            <th class="text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="plano-contas-tbody">
+                        </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+    <script src="../js/dashboard.js"></script> 
+    <script src="../js/lancamentos.js"></script>
+    <script src="../js/configuracoes.js"></script>
+</body>
+</html>

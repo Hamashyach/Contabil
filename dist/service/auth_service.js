@@ -47,14 +47,17 @@ const usuario_repository_1 = require("../repository/usuario_repository");
 const bcrypt = __importStar(require("bcrypt"));
 const jwt = __importStar(require("jsonwebtoken"));
 const usuario_model_1 = require("../model/entity/usuario_model");
+const empresa_model_1 = require("../model/entity/empresa_model");
+const empresa_repository_1 = require("../repository/empresa_repository");
 class AuthService {
     constructor() {
+        this.empresaRepository = new empresa_repository_1.EmpresaRepository();
         this.usuarioRepository = new usuario_repository_1.UsuarioRepository();
         this.saltRounds = 10;
     }
     registrar(dto) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { nome, senha, confirmeSenha } = dto;
+            const { nome, senha, confirmeSenha, razao_social, cnpj, nome_fantasia } = dto;
             if (senha !== confirmeSenha) {
                 throw new Error("As senhas não coincidem.");
             }
@@ -62,8 +65,13 @@ class AuthService {
             if (usuarioExistente) {
                 throw new Error("Este nome de usuário já está em uso.");
             }
+            const novaEmpresa = new empresa_model_1.Empresa(razao_social, cnpj, nome_fantasia);
+            const empresaSalva = yield this.empresaRepository.insertEmpresa(novaEmpresa);
+            if (!empresaSalva.id) {
+                throw new Error("Falha ao criar a empresa, o ID não foi retornado.");
+            }
             const senhaHash = yield bcrypt.hash(senha, this.saltRounds);
-            const novoUsuario = new usuario_model_1.Usuario(nome, senhaHash);
+            const novoUsuario = new usuario_model_1.Usuario(nome, senhaHash, empresaSalva.id);
             const usuarioSalvo = yield this.usuarioRepository.insertUsuario(novoUsuario);
             return { id: usuarioSalvo.id, nome: usuarioSalvo.nome };
         });

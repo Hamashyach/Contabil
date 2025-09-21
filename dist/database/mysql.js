@@ -9,7 +9,7 @@ const dbConfig = {
     host: 'localhost',
     port: 3306,
     user: 'root',
-    password: '',
+    password: 'root',
     database: 'contabil'
 };
 const mysqlConnection = mysql2_1.default.createConnection(dbConfig);

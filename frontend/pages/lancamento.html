@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lançamentos - Sistema Contábil</title>
+    <link rel="stylesheet" href="../css/dashboard.css"> 
+    <link rel="stylesheet" href="../css/lancamento.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-chart-pie logo-icon"></i>
+                <span class="logo-text">Contábil</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="lancamentos.html" class="nav-item active"> <i class="fas fa-exchange-alt"></i>
+                    <span>Lançamentos</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span>Relatórios</span>
+                </a>
+                 <a href="#" class="nav-item">
+                    <i class="fas fa-cogs"></i>
+                    <span>Configurações</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                 <a href="#" id="logout-button" class="nav-item">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Sair</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header">
+                <h1>Livro Diário</h1>
+                <button class="btn-primary" id="btn-novo-lancamento">
+                    <i class="fas fa-plus"></i> Novo Lançamento
+                </button>
+            </header>
+
+            <div class="form-panel-lancamento" id="form-panel" style="display: none;">
+                <h2>Registrar Nova Transação</h2>
+                <form id="lancamento-form">
+                    <div class="form-grid">
+                        <div class="form-group span-2">
+                            <label for="descricao">Descrição</label>
+                            <input type="text" id="descricao" required placeholder="Ex: Compra de matéria-prima">
+                        </div>
+                        <div class="form-group">
+                            <label for="data">Data</label>
+                            <input type="date" id="data" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="valor">Valor (R$)</label>
+                            <input type="number" id="valor" step="0.01" required placeholder="1500,00">
+                        </div>
+                        <div class="form-group">
+                            <label for="conta_debito">Conta Débito</label>
+                            <select id="conta_debito" required></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="conta_credito">Conta Crédito</label>
+                            <select id="conta_credito" required></select>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="btn-cancelar">Cancelar</button>
+                        <button type="submit" class="btn-primary">Salvar Lançamento</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="table-container">
+                <table id="livro-diario-table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Descrição</th>
+                            <th class="text-right">Valor (R$)</th>
+                            <th>Débito</th>
+                            <th>Crédito</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+    <script src="../js/dashboard.js"></script> 
+    <script src="../js/lancamentos.js"></script>
+</body>
+</html>

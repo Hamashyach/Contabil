@@ -44,36 +44,45 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsuarioService = void 0;
 const usuario_model_1 = require("../model/entity/usuario_model");
+const empresa_model_1 = require("../model/entity/empresa_model");
 const usuario_repository_1 = require("../repository/usuario_repository");
+const empresa_repository_1 = require("../repository/empresa_repository");
 const bcrypt = __importStar(require("bcrypt"));
 class UsuarioService {
     constructor() {
         this.repository = new usuario_repository_1.UsuarioRepository();
+        this.empresaRepository = new empresa_repository_1.EmpresaRepository();
         this.saltRounds = 10;
     }
     cadastrarUsuario(dto) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { senha } = dto;
+            const { senha, nome, razao_social, cnpj, nome_fantasia } = dto;
             if (!senha) {
                 throw new Error("Senha é obrigatória.");
             }
+            if (!nome || !razao_social || !cnpj) {
+                throw new Error("Nome, Email, Razão Social e CNPJ são obrigatórios.");
+            }
+            const novaEmpresa = new empresa_model_1.Empresa(razao_social, cnpj, nome_fantasia);
+            const empresaSalva = yield this.empresaRepository.insertEmpresa(novaEmpresa);
+            if (!empresaSalva.id) {
+                throw new Error("Falha ao criar a empresa, o ID não foi retornado.");
+            }
             const senhaHash = yield bcrypt.hash(senha, this.saltRounds);
-            // CORREÇÃO: Passando um 'nome' vazio para satisfazer o construtor
-            const novoUsuario = new usuario_model_1.Usuario('', senhaHash);
+            const novoUsuario = new usuario_model_1.Usuario(nome, senhaHash, empresaSalva.id);
             const usuarioSalvo = yield this.repository.insertUsuario(novoUsuario);
             return this.mapEntityToDto(usuarioSalvo);
         });
     }
     atualizarUsuario(id, dto) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { senha } = dto;
+            const { senha, nome } = dto;
             const usuarioExistente = yield this.repository.filterUsuarioById(id);
             if (!usuarioExistente) {
                 throw new Error(`Usuário com ID ${id} não foi encontrado.`);
             }
             const senhaHash = yield bcrypt.hash(senha, this.saltRounds);
-            // CORREÇÃO: Passando um 'nome' vazio e o id para a atualização
-            const usuarioParaAtualizar = new usuario_model_1.Usuario('', senhaHash);
+            const usuarioParaAtualizar = new usuario_model_1.Usuario(nome, senhaHash, usuarioExistente.id_empresa);
             usuarioParaAtualizar.id = id;
             yield this.repository.updateUsuario(usuarioParaAtualizar);
             return this.mapEntityToDto(usuarioParaAtualizar);

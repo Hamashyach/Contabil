@@ -26,6 +26,9 @@ const models = {
         "properties": {
             "nome": { "dataType": "string", "required": true },
             "senha": { "dataType": "string", "required": true },
+            "razao_social": { "dataType": "string", "required": true },
+            "nome_fantasia": { "dataType": "string" },
+            "cnpj": { "dataType": "string", "required": true },
         },
         "additionalProperties": false,
     },
